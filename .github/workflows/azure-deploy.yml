@@ -7,11 +7,10 @@ on:
   push:
     branches:
       - master
-  workflow_dispatch:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
@@ -38,8 +37,6 @@ jobs:
       id-token: write
       contents: read
     needs: build
-    environment:
-      name: 'production'
 #      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
@@ -60,6 +57,5 @@ jobs:
         id: deploy-to-webapp
         with:
           app-name: ${{env.APP_NAME}}
-          slot-name: 'production'
           package: .
 
